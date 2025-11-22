@@ -282,6 +282,7 @@
             transition: transform 0.4s ease;
             position: relative;
             box-shadow: var(--shadow);
+            background: #000;
         }
         
         .feedback-item:hover {
@@ -289,31 +290,13 @@
             box-shadow: var(--shadow-hover);
         }
 
-        .feedback-item img {
+        .feedback-item iframe {
             display: block;
             width: 100%;
-            height: 340px; /* Height for vertical video thumbnails */
+            height: 340px; /* Height for vertical videos */
             object-fit: cover;
-        }
-        
-        /* Play button overlay */
-        .feedback-item::after {
-            content: '▶️';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 3rem;
-            color: white;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            pointer-events: none;
-            z-index: 2;
-            transition: all 0.3s ease;
-        }
-        
-        .feedback-item:hover::after {
-            font-size: 3.5rem;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.7);
+            border: none;
+            border-radius: 15px;
         }
 
         @keyframes infiniteScroll {
@@ -425,7 +408,7 @@
             .hero-section { padding: 50px 0 30px; }
             .about-img { height: 280px; }
             .feedback-item { width: 220px; }
-            .feedback-item img { height: 280px; }
+            .feedback-item iframe { height: 280px; }
             .counter { font-size: 1.6rem; }
             .wa-btn { width: 100%; justify-content: center; }
             h1.display-3 { font-size: 2rem; }
@@ -511,66 +494,60 @@
         </div>
     </section>
 
-    <!-- ===== VIDEO FEEDBACK SECTION - WITH YOUTUBE SHORTS ===== -->
+    <!-- ===== VIDEO FEEDBACK SECTION - EMBEDDED YOUTUBE VIDEOS ===== -->
     <section class="py-5" style="background: linear-gradient(135deg, var(--soft-lilac), var(--white));">
         <div class="container">
             <h2 class="text-center display-5 fw-bold mb-3 animate-stagger" style="--order: 1;">✨ Real Success Stories</h2>
-            <p class="text-center text-muted mb-4 animate-stagger" style="--order: 2;">Watch authentic feedback from our thriving community</p>
+            <p class="text-center text-muted mb-4 animate-stagger" style="--order: 2;">Watch authentic feedback from our thriving community (Click to play)</p>
             
             <div class="feedback-viewport animate-stagger" style="--order: 3;">
                 <div class="feedback-track" id="feedbackTrack">
                     <!-- Video 1: Business person feedback -->
-                    <a class="feedback-item" href="https://youtube.com/shorts/IS5KDW5NBYo?feature=share" target="_blank" rel="noopener">
-                        <img src="https://img.youtube.com/vi/IS5KDW5NBYo/0.jpg" alt="Business Person Feedback" loading="lazy">
-                    </a>
+                    <div class="feedback-item">
+                        <iframe src="https://www.youtube.com/embed/IS5KDW5NBYo?rel=0&modestbranding=1" allowfullscreen></iframe>
+                    </div>
                     <!-- Video 2: Student feedback -->
-                    <a class="feedback-item" href="https://youtube.com/shorts/m0Dp-U2jzrQ?feature=share" target="_blank" rel="noopener">
-                        <img src="https://img.youtube.com/vi/m0Dp-U2jzrQ/0.jpg" alt="Student Feedback" loading="lazy">
-                    </a>
+                    <div class="feedback-item">
+                        <iframe src="https://www.youtube.com/embed/m0Dp-U2jzrQ?rel=0&modestbranding=1" allowfullscreen></iframe>
+                    </div>
                     <!-- Video 3: House wife feedbacks -->
-                    <a class="feedback-item" href="https://youtube.com/shorts/gsBAY-zZ5CM?feature=share" target="_blank" rel="noopener">
-                        <img src="https://img.youtube.com/vi/gsBAY-zZ5CM/0.jpg" alt="Housewife Feedback" loading="lazy">
-                    </a>
+                    <div class="feedback-item">
+                        <iframe src="https://www.youtube.com/embed/gsBAY-zZ5CM?rel=0&modestbranding=1" allowfullscreen></iframe>
+                    </div>
                     <!-- Video 4: Video editing student -->
-                    <a class="feedback-item" href="https://youtube.com/shorts/56QMKtQzD5U?feature=share" target="_blank" rel="noopener">
-                        <img src="https://img.youtube.com/vi/56QMKtQzD5U/0.jpg" alt="Video Editing Student" loading="lazy">
-                    </a>
+                    <div class="feedback-item">
+                        <iframe src="https://www.youtube.com/embed/56QMKtQzD5U?rel=0&modestbranding=1" allowfullscreen></iframe>
+                    </div>
                     <!-- Video 5: Doctor learn digital marketing -->
-                    <a class="feedback-item" href="https://youtube.com/shorts/3SZogWt3ME8?feature=share" target="_blank" rel="noopener">
-                        <img src="https://img.youtube.com/vi/3SZogWt3ME8/0.jpg" alt="Doctor Learning Digital Marketing" loading="lazy">
-                    </a>
+                    <div class="feedback-item">
+                        <iframe src="https://www.youtube.com/embed/3SZogWt3ME8?rel=0&modestbranding=1" allowfullscreen></iframe>
+                    </div>
                     <!-- Video 6: Company AVP feedback -->
-                    <a class="feedback-item" href="https://youtube.com/shorts/IiQpipMNwug?feature=share" target="_blank" rel="noopener">
-                        <img src="https://img.youtube.com/vi/IiQpipMNwug/0.jpg" alt="Company AVP Feedback" loading="lazy">
-                    </a>
+                    <div class="feedback-item">
+                        <iframe src="https://www.youtube.com/embed/IiQpipMNwug?rel=0&modestbranding=1" allowfullscreen></iframe>
+                    </div>
                     <!-- Video 7: Job person feedbacks -->
-                    <a class="feedback-item" href="https://youtube.com/shorts/_RRXQmcaDqU?feature=share" target="_blank" rel="noopener">
-                        <img src="https://img.youtube.com/vi/_RRXQmcaDqU/0.jpg" alt="Job Person Feedback" loading="lazy">
-                    </a>
+                    <div class="feedback-item">
+                        <iframe src="https://www.youtube.com/embed/_RRXQmcaDqU?rel=0&modestbranding=1" allowfullscreen></iframe>
+                    </div>
                     <!-- Video 8: Responsibility woman feedback -->
-                    <a class="feedback-item" href="https://youtube.com/shorts/sx7CvJKXXzM?feature=share" target="_blank" rel="noopener">
-                        <img src="https://img.youtube.com/vi/sx7CvJKXXzM/0.jpg" alt="Responsibility Woman Feedback" loading="lazy">
-                    </a>
+                    <div class="feedback-item">
+                        <iframe src="https://www.youtube.com/embed/sx7CvJKXXzM?rel=0&modestbranding=1" allowfullscreen></iframe>
+                    </div>
                     <!-- Duplicates for seamless loop -->
-                    <a class="feedback-item" href="https://youtube.com/shorts/IS5KDW5NBYo?feature=share" target="_blank" rel="noopener">
-                        <img src="https://img.youtube.com/vi/IS5KDW5NBYo/0.jpg" alt="Business Person Feedback" loading="lazy">
-                    </a>
-                    <a class="feedback-item" href="https://youtube.com/shorts/m0Dp-U2jzrQ?feature=share" target="_blank" rel="noopener">
-                        <img src="https://img.youtube.com/vi/m0Dp-U2jzrQ/0.jpg" alt="Student Feedback" loading="lazy">
-                    </a>
-                    <a class="feedback-item" href="https://youtube.com/shorts/gsBAY-zZ5CM?feature=share" target="_blank" rel="noopener">
-                        <img src="https://img.youtube.com/vi/gsBAY-zZ5CM/0.jpg" alt="Housewife Feedback" loading="lazy">
-                    </a>
-                    <a class="feedback-item" href="https://youtube.com/shorts/56QMKtQzD5U?feature=share" target="_blank" rel="noopener">
-                        <img src="https://img.youtube.com/vi/56QMKtQzD5U/0.jpg" alt="Video Editing Student" loading="lazy">
-                    </a>
+                    <div class="feedback-item">
+                        <iframe src="https://www.youtube.com/embed/IS5KDW5NBYo?rel=0&modestbranding=1" allowfullscreen></iframe>
+                    </div>
+                    <div class="feedback-item">
+                        <iframe src="https://www.youtube.com/embed/m0Dp-U2jzrQ?rel=0&modestbranding=1" allowfullscreen></iframe>
+                    </div>
                 </div>
             </div>
             
             <div class="text-center mt-4">
                 <button class="wa-btn open-any shine-effect" data-source="Feedback Section">
                     <i data-lucide="message-circle" width="20"></i>
-                    View More Stories
+                    Join Our Success Stories
                 </button>
             </div>
         </div>
