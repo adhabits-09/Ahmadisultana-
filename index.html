@@ -259,18 +259,32 @@
             color: var(--royal-blue);
         }
 
-        /* ===== VIDEO FEEDBACK SECTION - AUTO-SCROLLING OFF ===== */
+        /* ===== VIDEO FEEDBACK SECTION - MANUAL SCROLL ENABLED ===== */
         .feedback-viewport {
-            overflow: hidden;
+            overflow-x: auto; /* Enable horizontal scrolling */
             margin: 1.5rem 0;
+            padding-bottom: 10px; /* Space for scrollbar */
+        }
+
+        /* Custom scrollbar styling */
+        .feedback-viewport::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .feedback-viewport::-webkit-scrollbar-track {
+            background: var(--soft-lilac);
+            border-radius: 10px;
+        }
+
+        .feedback-viewport::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--royal-blue), var(--hot-pink));
+            border-radius: 10px;
         }
 
         .feedback-track {
             display: flex;
             gap: 15px;
-            /* AUTO-SCROLLING REMOVED - No animation */
-            /* animation: infiniteScroll 15s linear infinite; */
-            width: max-content;
+            width: max-content; /* Allow track to be wider than viewport */
         }
 
         .feedback-item {
@@ -295,12 +309,6 @@
             height: 340px;
             border: none;
             border-radius: 15px;
-        }
-
-        /* Keyframes kept for reference but not used */
-        @keyframes infiniteScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
         }
 
         .step-card {
@@ -493,7 +501,7 @@
         </div>
     </section>
 
-    <!-- ===== VIDEO FEEDBACK SECTION - AUTO-SCROLLING OFF ===== -->
+    <!-- ===== VIDEO FEEDBACK SECTION - MANUAL SCROLL ENABLED ===== -->
     <section class="py-5" style="background: linear-gradient(135deg, var(--soft-lilac), var(--white));">
         <div class="container">
             <h2 class="text-center display-5 fw-bold mb-3 animate-stagger" style="--order: 1;">✨ Real Success Stories</h2>
@@ -532,13 +540,6 @@
                     <!-- Video 8: Responsibility woman feedback -->
                     <div class="feedback-item">
                         <iframe src="https://www.youtube.com/embed/sx7CvJKXXzM?rel=0&modestbranding=1" allowfullscreen></iframe>
-                    </div>
-                    <!-- Duplicates for full row effect -->
-                    <div class="feedback-item">
-                        <iframe src="https://www.youtube.com/embed/IS5KDW5NBYo?rel=0&modestbranding=1" allowfullscreen></iframe>
-                    </div>
-                    <div class="feedback-item">
-                        <iframe src="https://www.youtube.com/embed/m0Dp-U2jzrQ?rel=0&modestbranding=1" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
