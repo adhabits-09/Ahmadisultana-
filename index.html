@@ -83,7 +83,7 @@
                 transparent 70%
             );
             background-size: 200% 100%;
-            animation: shimmer 3s infinite linear;
+            animation: shimmer 3s infinite;
             z-index: 0;
             transform: rotate(30deg);
             opacity: 0;
@@ -410,6 +410,18 @@
         .form-control:focus, .form-select:focus {
             border-color: var(--royal-blue);
             box-shadow: 0 0 0 4px rgba(65, 105, 225, 0.15);
+        }
+
+        /* ===== NEW STYLES FOR LOADING STATE ===== */
+        .loading-state {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .spinner-border-sm {
+            width: 1rem;
+            height: 1rem;
+            border-width: 0.15em;
         }
 
         @media (max-width: 768px) {
@@ -789,7 +801,10 @@
                             </select>
                         </div>
                         <div class="col-12">
-                            <button type="submit" class="wa-btn w-100">📲 Send to WhatsApp</button>
+                            <button type="submit" class="wa-btn w-100" id="submitBtn">
+                                <span class="spinner-border spinner-border-sm me-2 d-none" id="loadingSpinner"></span>
+                                <span id="btnText">📲 Send to WhatsApp</span>
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -835,6 +850,12 @@
         const sourceInfo = document.getElementById('sourceInfo');
         const closeFormBtn = document.getElementById('closeFormBtn');
         const WA_NUMBER_INT = "917981991377";
+        const submitBtn = document.getElementById('submitBtn');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+        const btnText = document.getElementById('btnText');
+
+        // ===== GOOGLE SHEET CONFIGURATION - IMPORTANT! =====
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxOtGIT7ghsZlF4wiiP_zDcczd1m-yW_w_bPzoEJ_92zcj53BKh2v4DArcv4YmZMJHu/exec';
 
         function openForm(source = 'site') {
             sourceInfo.value = source;
@@ -847,7 +868,12 @@
             formBackdrop.classList.remove('show');
             formContainer.classList.remove('show');
             document.body.style.overflow = '';
-            setTimeout(() => mainForm.reset(), 300);
+            setTimeout(() => {
+                mainForm.reset();
+                submitBtn.classList.remove('loading-state');
+                loadingSpinner.classList.add('d-none');
+                btnText.textContent = '📲 Send to WhatsApp';
+            }, 300);
         }
 
         formBackdrop.addEventListener('click', closeForm);
@@ -861,8 +887,30 @@
             }
         });
 
+        // ===== NEW FUNCTION TO SUBMIT TO GOOGLE SHEET =====
+        async function submitToGoogleSheet(formData) {
+            try {
+                const response = await fetch(APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                console.log('Google Sheet response:', result);
+                return result.status === 'success';
+            } catch (error) {
+                console.error('Error submitting to Google Sheet:', error);
+                return false;
+            }
+        }
+
+        // ===== INSTANT WHATSAPP + BACKGROUND SHEET SAVE =====
         mainForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            
             const name = document.getElementById('inp_name').value.trim();
             const phone = document.getElementById('inp_phone').value.replace(/\D/g, '');
             const age = document.getElementById('inp_age').value;
@@ -874,21 +922,36 @@
                 return;
             }
 
+            // Prepare form data
+            const formData = {
+                name: name,
+                phone: phone,
+                age: age,
+                gender: gender,
+                profession: profession,
+                source: sourceInfo.value || 'Website'
+            };
+
+            // ===== INSTANT WhatsApp Open (No Delay) =====
             const message = encodeURIComponent(
                 `Hello Ise Ma'am,\n\nI am interested in your program. Here are my details:\n\nName: ${name}\nPhone: ${phone}\nAge: ${age}\nGender: ${gender}\nProfession: ${profession}\n\nPlease share next steps. Thank you!`
             );
-
-            // Track Meta Pixel events before redirect
-            if (typeof fbq !== 'undefined') {
-                fbq('track', 'Contact');
-                fbq('track', 'Lead', {
-                    content_name: 'WhatsApp Form Submission',
-                    content_category: 'Lead Generation',
-                    content_source: sourceInfo.value
-                });
-            }
-
+            
+            // Open WhatsApp IMMEDIATELY in new tab
             window.open(`https://wa.me/${WA_NUMBER_INT}?text=${message}`, '_blank');
+
+            // ===== Background Google Sheet Save (No Waiting) =====
+            submitToGoogleSheet(formData).then(success => {
+                if(success) {
+                    console.log('✅ Google Sheet saved successfully');
+                } else {
+                    console.warn('❌ Google Sheet save failed');
+                }
+            }).catch(error => {
+                console.error('❌ Google Sheet error:', error);
+            });
+
+            // ===== Close form immediately =====
             closeForm();
         });
 
